@@ -1,3 +1,5 @@
+from tkinter import simpledialog
+
 from GameTime import GameTime
 from Model import Model
 from View import View
@@ -55,3 +57,12 @@ class Controller:
             self.view.btn_cancel["state"] = "disabled"
             self.view.btn_send["state"] = "disabled"
             self.view.char_input["state"] = "disabled"
+            player_name= simpledialog.askstring("Game over", "Sisesta palun oma nimi", parent=self.view)
+            self.model.set_player_name(player_name,self.gametime.counter)
+            self.view.change_image(len(self.model.image_files)-1)
+
+    def click_btn_leaderboard(self):
+        popup_window=self.view.create_popup_window()
+        data=self.model.read_leaderboard_file()
+        self.view.generate_leaderboard(popup_window,data)
+
