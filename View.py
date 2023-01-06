@@ -67,14 +67,15 @@ class View(Tk):
 
     def create_all_buttons(self):
         # New Game
-        btn_new = Button(self.frame_top, text='New Game', font=self.default_style)
+        btn_new = Button(self.frame_top, text='New Game', font=self.default_style,command=self.controller.click_btn_new)
         # Leaderboard create and place once
         Button(self.frame_top, text='Leaderboard', font=self.default_style).grid(row=0, column=1, padx=5, pady=2,
                                                                                  sticky=EW)
         # Cancel and Send
-        btn_cancel = Button(self.frame_top, text='Cancel', font=self.default_style, state='disabled')
-        btn_send = Button(self.frame_top, text='Send', font=self.default_style, state='disabled')
+        btn_cancel = Button(self.frame_top, text='Cancel', font=self.default_style, state='disabled',command=self.controller.click_btn_cancel)
+        btn_send = Button(self.frame_top, text='Send', font=self.default_style, state='disabled',command=self.controller.click_btn_send)
         # Place three button on frame
+
         btn_new.grid(row=0, column=0, padx=5, pady=2, sticky=EW)
         btn_cancel.grid(row=0, column=2, padx=5, pady=2, sticky=EW)
         btn_send.grid(row=1, column=2, padx=5, pady=2, sticky=EW)
@@ -85,7 +86,7 @@ class View(Tk):
         Label(self.frame_top, text='Input character', font=self.default_style_bold).grid(row=1, column=0, padx=5,
                                                                                          pady=2)
         lbl_error = Label(self.frame_top, text='Wrong 0 letter(s)', anchor='w', font=self.default_style_bold)
-        lbl_time = Label(self.frame_top, text='0:00:00', font=self.default_style)
+        lbl_time = Label(self.frame_top, text='00:00:00', font=self.default_style)
         lbl_result = Label(self.frame_bottom, text='Let\'s play'.upper(), font=self.big_font_style)
         # Image label
         self.label_image = Label(self.frame_image, image=self.image)
@@ -103,3 +104,8 @@ class View(Tk):
         char_input.grid(row=1, column=1, padx=5, pady=2)
 
         return char_input
+
+    def change_image(self,image_id):
+        self.image=ImageTk.PhotoImage(Image.open(self.model.image_files[image_id]))
+        self.label_image.configure(image=self.image)
+        self.label_image.image=self.image
